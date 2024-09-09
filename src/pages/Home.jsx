@@ -16,7 +16,7 @@ function Home() {
         return (
             <div className="w-full py-8 mt-4 text-center ">
                 <Container>
-                    <div className="flex flex-wrap">
+                    <div className="flex flex-wrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                         {posts.map((post) => (
                             <div key={post.$id} className="p-2 w-45 ">
                                 <PostCard {...post}/>
