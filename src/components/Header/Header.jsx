@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Logo, LogoutBtn } from '../index';
+import { Container, Logo, LogoutBtn, ProfileBtn } from '../index';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -65,9 +65,14 @@ function Header() {
                   ) : null
                 )}
                 {authStatus && (
+                  <>
+                  <li className='mb-1'>
+                    <ProfileBtn />
+                  </li>
                   <li>
                     <LogoutBtn />
                   </li>
+                  </>
                 )}
               </ul>
             </div>

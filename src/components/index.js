@@ -18,6 +18,7 @@ import EditPost from '../pages/EditPost.jsx';
 import Post from '../pages/Post.jsx';
 import Select from "./Select"
 import PostsByUser from "./PostsByUser.jsx";
+import ProfileBtn from "./Header/ProfileBtn.jsx";
 export{
     Header,
     Footer,
@@ -38,5 +39,6 @@ export{
     EditPost,
     Post,
     Select,
-    PostsByUser
+    PostsByUser,
+    ProfileBtn
 }
