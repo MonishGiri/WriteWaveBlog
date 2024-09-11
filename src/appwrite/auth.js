@@ -42,7 +42,6 @@ export class AuthService {
     // Get current logged-in user
     async getCurrentUser() {
         try {
-            console.log("Fetching current user...");
             const session = await this.account.getSession('current');
             if (session) {
                 // If session exists, get user details
@@ -69,6 +68,8 @@ export class AuthService {
             console.error("Appwrite service :: logout :: error", error.message);
         }
     }
+
+    
 }
 
 const authService = new AuthService();

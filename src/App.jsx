@@ -6,7 +6,7 @@ import { login, logout } from './store/authSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { Outlet } from 'react-router-dom';  // <--- Important!
-
+import { DynamicTitle } from './components';
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ function App() {
   }, []);
 
   return !loading ? (
+    <>
+    <DynamicTitle />
     <div className='min-h-screen flex flex-col content-between bg-gray-900'>
       <div className='w-full block'>
         <Header />
@@ -34,6 +36,7 @@ function App() {
         <Footer />
       </div>
     </div>
+    </>
   ) : (null);
 }
 

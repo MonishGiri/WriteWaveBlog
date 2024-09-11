@@ -1,0 +1,67 @@
+/* Ensure these styles are in your customStyle.css file */
+
+/* Container for the waves */
+.ocean {
+    height: 150px; /* Adjust height as needed */
+    width: 100%;
+    position: relative; /* Ensure correct positioning */
+    overflow: hidden; /* Hide overflowing content */
+    background: transparent; /* Transparent background to blend with page */
+    margin-top: -10px; /* Adjust to align with content if needed */
+  }
+  
+  /* First wave */
+  .wave {
+    background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/85486/wave.svg) repeat-x;
+    position: absolute;
+    width: 6400px;
+    top: 0; /* Position at the bottom of the ocean container */
+    left: 0;
+    height: 100px; /* Adjust height as needed */
+    transform: translate(0, 0, 0);
+    animation: wave 7s ease infinite;
+  }
+  
+  /* Second wave */
+  .wave:nth-of-type(2) {
+    top: 20px; /* Adjust to overlap slightly with the first wave */
+    animation: swell 4s ease infinite;
+    opacity: 1;
+  }
+  
+  /* Keyframes for the wave animation */
+  @keyframes wave {
+    0% { margin-left: 0; }
+    100% { margin-left: -1600px; }
+  }
+  
+  @keyframes swell {
+    0%, 100% {
+      transform: translate(0, -20px);
+    }
+    50% {
+      transform: translate(0, 10px);
+    }
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 640px) {
+    .ocean {
+      height: 100px; /* Adjust height for smaller screens */
+      margin-top: 0; /* Reset margin for mobile */
+    }
+  
+    .wave {
+      height: 80px; /* Adjust wave height for smaller screens */
+    }
+  
+    .wave:nth-of-type(2) {
+      top: 10px; /* Adjust position for smaller screens */
+    }
+  
+    @keyframes wave {
+      0% { margin-left: 0; }
+      100% { margin-left: -800px; } /* Shorter animation distance for mobile */
+    }
+  }
+  

@@ -19,6 +19,7 @@ import Post from '../pages/Post.jsx';
 import Select from "./Select"
 import PostsByUser from "./PostsByUser.jsx";
 import ProfileBtn from "./Header/ProfileBtn.jsx";
+import DynamicTitle from "./DynamicTitle.jsx";
 export{
     Header,
     Footer,
@@ -40,5 +41,6 @@ export{
     Post,
     Select,
     PostsByUser,
-    ProfileBtn
+    ProfileBtn,
+    DynamicTitle
 }

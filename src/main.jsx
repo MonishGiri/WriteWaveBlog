@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { createBrowserRouter, RouterProvider  } from 'react-router-dom'
 import Login from './components/Login.jsx'
-import { AddPost, AllPosts, AuthLayout, EditPost, Home, Post, PostsByUser, Signup } from './components/index.js'
+import { AddPost, AllPosts, AuthLayout, DynamicTitle, EditPost, Home, Post, PostsByUser, Signup } from './components/index.js'
 
 const router = createBrowserRouter([
   {
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-    <RouterProvider router={router} >
+    <RouterProvider router={router} >                
     <App />
     </RouterProvider>
     </Provider>

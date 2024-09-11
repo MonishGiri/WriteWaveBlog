@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const ProfileBtn = () => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
+  const [data, setData] = useState();
+  const dummydata = {
+    name : 'Guest',
+    status: 'Inactive',
+    registeredOn: null,
+    email: 'guest@guest.com'
+  }
   const {userData} = useSelector((state) => state.auth);
 
   const handleMouseEnter = () => {
@@ -24,10 +31,25 @@ const ProfileBtn = () => {
     timeZoneName: 'short'
   };
 
-  const date = new Date(userData.registration);
+  useEffect(() => {
+    setTimeout(() => {
+      
+      if(userData){
+        dummydata.name = userData.name;
+        dummydata.status = userData.status;
+        dummydata.email = userData.email;
+        const date = new Date(userData.registration);
+      
+        // Example of formatting the date
+        const registeredOn = date.toLocaleString('en-IN',options);
+        dummydata.registeredOn = registeredOn;
+        setData(dummydata)
+      } 
+    }, 2000);
+    
+  }, [])
   
-  // Example of formatting the date
-  const registredOn = date.toLocaleString('en-IN',options); // Local date and time format
+  
 
   return (
     <div className="relative">
@@ -66,13 +88,13 @@ const ProfileBtn = () => {
               </div>
             </div>
             <p className="text-base font-semibold leading-none text-gray-900 dark:text-white">
-              <Link to="#">{userData.name}</Link>
+              <Link to="#">{data.name}</Link>
             </p>
             <p className="mb-3 text-sm font-normal">
-              <Link to="#" className="hover:underline text-green-500">@{userData.status ? 'Active' : 'InActive'}</Link>
+              <Link to="#" className="hover:underline text-green-500">@{data.status ? 'Active' : 'InActive'}</Link>
             </p>
             <p className="mb-4 text-sm">
-              Email {userData.email}
+              Email {data.email}
               {/* <Link to="#" className="text-blue-600 dark:text-blue-500 hover:underline">
                 flowbite.com
               </Link> */}
@@ -81,7 +103,7 @@ const ProfileBtn = () => {
             <ul className="flex text-sm">
               <li className="me-2">
                 <Link to="#" className="hover:underline">
-                  <span className="font-semibold text-gray-900 dark:text-white">{registredOn}</span> <br />
+                  <span className="font-semibold text-gray-900 dark:text-white">{data.registeredOn}</span> <br />
                   <span> Registered At</span>
                 </Link>
               </li>

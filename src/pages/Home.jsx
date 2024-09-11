@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import appwriteService from '../appwrite/confg';
 import {Container, PostCard} from '../components';
+import '../customStyle.css'
 
 function Home() {
     const [posts, setPosts] = useState([]);
@@ -29,9 +30,15 @@ function Home() {
     }
     else{
         return(
-            <div className="w-full py-8 mb-[20%] text-center mt-0.5">
-                <h1 className="text-gray-500 dark:text-white text-3xl mt-[3%]">Login to see the blogs</h1>
-            </div>
+            <>
+            <div className="w-full py-8 mb-[20%] text-center mt-0.5 animate-slideInBounce">
+  <h1 className="text-gray-500 font-bold dark:text-white text-3xl mt-[3%]">Login to see the blogs</h1>
+</div>
+<div className="ocean">
+  <div className="wave"></div>
+  <div className="wave wave2"></div>
+</div>
+</>
         )
     }
 }
