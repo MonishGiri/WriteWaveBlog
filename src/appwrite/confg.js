@@ -1,6 +1,7 @@
 import config from "../config/config";
-import {  ID, Databases, Storage, Query, Client } from "appwrite";
-
+import {  ID, Databases, Storage, Query, Client,} from "appwrite";
+import axios from "axios";
+// import { Users } from 'appwrite'
 export class Service{
 
         client = new Client();
@@ -13,6 +14,7 @@ export class Service{
                 .setProject(config.appwriteProjectId);
             this.databases = new Databases(this.client);
             this.bucket = new Storage(this.client);
+            // this.account = new Account(this.client);
         }
 
         async createPost({title, slug, content, featuredImage, status, userId}){
@@ -80,7 +82,7 @@ export class Service{
             }
         }
 
-        async getPosts(queries = [Query.equal("status","active")]){
+        async getPosts(queries = [Query.equal("status","active"),Query.orderDesc("$createdAt")]){
             try {
                 return await this.databases.listDocuments(
                     config.appwriteDatabaseId,
@@ -130,12 +132,28 @@ export class Service{
         async  getPostsByUser(userId) {
             try {
               return await this.databases.listDocuments(config.appwriteDatabaseId, config.appwriteCollectionId, [
+                Query.orderDesc("$createdAt"),
                 Query.equal('userId', userId)
               ]);
             } catch (error) {
-              throw new Error(`Error fetching posts for user: ${error.message}`);
+              console.log(`Error fetching posts for user: ${error.message}`);
             }
-          }
+        }
+
+        async getUserById(userId) {
+            try {
+                const response = await axios.get(`${config.appwriteUrl}/users/${userId}`, {
+                  headers: {
+                    'X-Appwrite-Project': config.appwriteProjectId,
+                    'X-Appwrite-Key': 'standard_9cde459580be253b5ba1dcd0a2cde59abd9a03d2a44cfb88623f32d1667400b6058dde38ca1569cf6bb5d7d7e27ceaec457dc0be00be535b4b2d4abc622a1fd72d02e824f11076f93a58845eaad7d54246d8229cbb55d54e0152e4976eca5cf46f08b5726df96e9114cf3cc98e33badf7b4be813e6a9be49be321744f1b69e65' ,
+                  },
+                });
+                return response.data;
+              } catch (error) {
+                console.error('Error fetching user:', error);
+                throw error;
+              }
+        }
 }
 
 const service = new Service();

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/confg";
 import { Button, Container } from "../components";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function Post() {
     const [post, setPost] = useState(null);
+    const [user, setUser] = useState({});
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -16,14 +17,21 @@ export default function Post() {
 
     useEffect(() => {
         if (slug) {
-            appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
-                else navigate("/");
+            appwriteService.getPost(slug).then((fetchedPost) => {
+                if (fetchedPost) {
+                    setPost(fetchedPost);
+                    // Fetch the user once the post is available
+                    appwriteService.getUserById(fetchedPost.userId).then((fetchedUser) => {
+                        setUser(fetchedUser);
+                    });
+                } else {
+                    navigate("/");
+                }
             });
-        } else navigate("/");
+        } else {
+            navigate("/");
+        }
     }, [slug, navigate]);
-
-    console.log(post);
 
     const deletePost = () => {
         appwriteService.deletePost(post.$id).then((status) => {
@@ -62,7 +70,9 @@ export default function Post() {
                 </div>
                 <div className="browser-css dark:text-white text-black">
                     {parse(post.content)}
-                    </div>
+                </div>
+                <span className=" text-purple-500 font-bold">-By {user ? user.name : 'Anonymous User'}</span><br />
+                {/* <span className=" text-purple-500">{user ? user.email : 'Anonymous User'}</span> */}
             </Container>
         </div>
     ) : null;

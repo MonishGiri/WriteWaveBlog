@@ -84,6 +84,7 @@ function PostForm({ post }) {
                     label="Title: "
                     placeholder="Title"
                     className="mb-4 w-full"
+                    maxLength = "250"
                     {...register("title", { required: true })}
                 />
 
@@ -97,7 +98,7 @@ function PostForm({ post }) {
                     }}
                 />
 
-                <RTE label="Content: " name="content" control={control} defaultValue={getValues("content")} />
+                <RTE label="Content: " name="content" control={control} maxLength='1000' defaultValue={getValues("content")} />
             </div>
 
             <div className='w-full md:w-1/3 px-2 mt-4 md:mt-0'>
