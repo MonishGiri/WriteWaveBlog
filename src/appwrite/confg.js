@@ -145,7 +145,7 @@ export class Service{
                 const response = await axios.get(`${config.appwriteUrl}/users/${userId}`, {
                   headers: {
                     'X-Appwrite-Project': config.appwriteProjectId,
-                    'X-Appwrite-Key': 'standard_9cde459580be253b5ba1dcd0a2cde59abd9a03d2a44cfb88623f32d1667400b6058dde38ca1569cf6bb5d7d7e27ceaec457dc0be00be535b4b2d4abc622a1fd72d02e824f11076f93a58845eaad7d54246d8229cbb55d54e0152e4976eca5cf46f08b5726df96e9114cf3cc98e33badf7b4be813e6a9be49be321744f1b69e65' ,
+                    'X-Appwrite-Key': config.appwriteApikey ,
                   },
                 });
                 return response.data;
