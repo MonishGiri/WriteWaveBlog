@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 
 const ProfileBtn = () => {
   const [isPopoverVisible, setPopoverVisible] = useState(false);
-  const [data, setData] = useState();
-  const dummydata = {
-    name : 'Guest',
+  const [data, setData] = useState({
+    name: 'Guest',
     status: 'Inactive',
     registeredOn: null,
     email: 'guest@guest.com'
-  }
-  const {userData} = useSelector((state) => state.auth);
+  });
+  
+  const { userData } = useSelector((state) => state.auth);
 
   const handleMouseEnter = () => {
     setPopoverVisible(true);
@@ -33,23 +33,17 @@ const ProfileBtn = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      
-      if(userData){
-        dummydata.name = userData.name;
-        dummydata.status = userData.status;
-        dummydata.email = userData.email;
-        const date = new Date(userData.registration);
-      
-        // Example of formatting the date
-        const registeredOn = date.toLocaleString('en-IN',options);
-        dummydata.registeredOn = registeredOn;
-        setData(dummydata)
-      } 
+      if (userData) {
+        const updatedData = {
+          name: userData.name,
+          status: userData.status,
+          email: userData.email,
+          registeredOn: new Date(userData.registration).toLocaleString('en-IN', options)
+        };
+        setData(updatedData);
+      }
     }, 2000);
-    
-  }, [])
-  
-  
+  }, [userData, options]);
 
   return (
     <div className="relative">
@@ -75,44 +69,28 @@ const ProfileBtn = () => {
                 <img
                   className="w-10 h-10 rounded-full "
                   src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
-                  alt="Jese Leos"
+                  alt="User Profile"
                 />
               </Link>
-              <div>
-                {/* <button
-                  type="button"
-                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                >
-                  Follow
-                </button> */}
-              </div>
             </div>
             <p className="text-base font-semibold leading-none text-gray-900 dark:text-white">
-              <Link to="#">{data.name}</Link>
+              <Link to="#">{data?.name}</Link>
             </p>
             <p className="mb-3 text-sm font-normal">
-              <Link to="#" className="hover:underline text-green-500">@{data.status ? 'Active' : 'InActive'}</Link>
+              <Link to="#" className="hover:underline text-green-500">
+                @{data?.status ? 'Active' : 'Inactive'}
+              </Link>
             </p>
             <p className="mb-4 text-sm">
-              Email {data.email}
-              {/* <Link to="#" className="text-blue-600 dark:text-blue-500 hover:underline">
-                flowbite.com
-              </Link> */}
-              
+              Email: {data?.email}
             </p>
             <ul className="flex text-sm">
               <li className="me-2">
                 <Link to="#" className="hover:underline">
-                  <span className="font-semibold text-gray-900 dark:text-white">{data.registeredOn}</span> <br />
-                  <span> Registered At</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{data?.registeredOn}</span> <br />
+                  <span>Registered At</span>
                 </Link>
               </li>
-              {/* <li>
-                <Link to="#" className="hover:underline">
-                  <span className="font-semibold text-gray-900 dark:text-white">3,758</span>
-                  <span> Followers</span>
-                </Link>
-              </li> */}
             </ul>
           </div>
           <div data-popper-arrow></div>
