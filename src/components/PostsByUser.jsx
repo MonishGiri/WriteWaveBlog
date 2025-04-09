@@ -16,7 +16,7 @@ function PostsByUser() {
                 }
             });
         }
-    }, [userData]);  
+    }, [userData,postsByUser]);  
 
     if (postsByUser && postsByUser.length > 0) {
         return (
